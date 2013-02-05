@@ -45,7 +45,7 @@ public class Square1 implements Square {
 	}
 
 	@Override
-	public Vector2 getA() {
+	public final Vector2 getA() {
 		return a;
 	}
 
