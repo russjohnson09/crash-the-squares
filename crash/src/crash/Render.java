@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Render {
 
-	private static final float CAMERA_WIDTH = 24;
+	public static final float CAMERA_WIDTH = 24;
 
-	private static final float CAMERA_HEIGHT = 42.7f;
+	public static final float CAMERA_HEIGHT = 42.7f;
 
 	private World world;
 	private Square player;
@@ -29,12 +29,11 @@ public class Render {
 	}
 
 	public void render() {
-		Square player = world.getPlayer();
 		renderer.begin(ShapeType.Rectangle);
 		renderer.setColor(Color.RED);
 
-		renderer.rect(player.getPos().x, player.getPos().y, player.getW(),
-				player.getW());
+		for (Square s : world.getSquares())
+			renderer.rect(s.getPos().x, s.getPos().y, s.getW(), s.getW());
 
 		renderer.end();
 
