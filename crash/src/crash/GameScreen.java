@@ -20,18 +20,7 @@ public class GameScreen implements Screen, InputProcessor {
 
 	private Render render;
 
-	private enum K {
-		L, R, U, D
-	};
-
-	private static Set<K> key = new HashSet<K>();
-
-	static {
-		key.add(K.L);
-		key.add(K.R);
-		key.add(K.U);
-		key.add(K.D);
-	};
+	private final float A = 5;
 
 	@Override
 	public void show() {
@@ -39,34 +28,14 @@ public class GameScreen implements Screen, InputProcessor {
 		player = world.getPlayer();
 		render = new Render(world);
 
+		Gdx.input.setInputProcessor(this);
+
 	}
 
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		Vector2 a = player.getA();
-		//
-		// if (key.contains(K.L))
-		// if (key.contains(K.R))
-		// a.x = 0;
-		// else
-		// a.x = -1;
-		// else if (key.contains(K.R))
-		// a.x = 1;
-		// else
-		// a.x = 0;
-		//
-		// if (key.contains(K.D))
-		// if (key.contains(K.U))
-		// a.y = 0;
-		// else
-		// a.y = -1;
-		// else if (key.contains(K.U))
-		// a.y = 1;
-		// else
-		// a.y = 0;
 
 		world.update(delta);
 
@@ -80,30 +49,31 @@ public class GameScreen implements Screen, InputProcessor {
 	public boolean keyDown(int keycode) {
 		Vector2 a = player.getA();
 		if (keycode == Keys.LEFT)
-			a.y = 1;
-
-		if (keycode == Keys.LEFT)
-			key.add(K.L);
+			a.x = -A;
 		else if (keycode == Keys.RIGHT)
-			key.add(K.R);
+			a.x = A;
 		else if (keycode == Keys.DOWN)
-			key.add(K.D);
+			a.y = -A;
 		else if (keycode == Keys.UP)
-			key.add(K.U);
+			a.y = A;
+
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		if (keycode == Keys.LEFT)
-			key.remove(K.L);
-		else if (keycode == Keys.RIGHT)
-			key.remove(K.R);
-		else if (keycode == Keys.DOWN)
-			key.remove(K.D);
-		else if (keycode == Keys.UP)
-			key.remove(K.U);
+		Vector2 a = player.getA();
+		if (keycode == Keys.LEFT && a.x == -A)
+			a.x = 0;
+		else if (keycode == Keys.RIGHT && a.x == A)
+			a.x = 0;
+		else if (keycode == Keys.DOWN && a.y == -A)
+			a.y = 0;
+		else if (keycode == Keys.UP && a.y == A)
+			a.y = 0;
+
 		return false;
+
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package crash;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Square1 implements Square {
@@ -12,10 +13,21 @@ public class Square1 implements Square {
 	/* width */
 	private float w;
 
+	private float m;
+
 	public Square1(float w) {
 		this.w = w;
+		this.m = w;
 		this.pos = new Vector2(0, 0);
 		this.v = new Vector2(.1f, .1f);
+		this.a = new Vector2(0, 0);
+	}
+
+	public Square1(float w, Vector2 pos) {
+		this.w = w;
+		this.m = w;
+		this.pos = pos;
+		this.v = new Vector2(0, 0);
 		this.a = new Vector2(0, 0);
 	}
 
@@ -45,6 +57,16 @@ public class Square1 implements Square {
 	@Override
 	public float getW() {
 		return w;
+	}
+
+	@Override
+	public float getM() {
+		return m;
+	}
+
+	@Override
+	public Rectangle getRect() {
+		return new Rectangle(pos.x, pos.y, w, w);
 	}
 
 	@Override

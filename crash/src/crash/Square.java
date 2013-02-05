@@ -1,5 +1,6 @@
 package crash;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public interface Square {
@@ -25,10 +26,14 @@ public interface Square {
 
 	Vector2 getPos();
 
+	float getM();
+
 	/**
 	 * 
 	 * @return width of square;
 	 */
 	float getW();
+
+	Rectangle getRect();
 
 }
